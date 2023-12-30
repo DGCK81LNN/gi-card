@@ -1,0 +1,44 @@
+name: Build and deploy to GitHub Pages
+
+on:
+  schedule:
+  - cron: "0 4,8,12,16,20 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  pages:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out
+      uses: actions/checkout@v2
+    - name: Setup Python
+      uses: actions/setup-python@v5.0.0
+      with:
+        python-version: "3.11"
+        cache: pip
+    - name: Run script
+      run: python gi-card.py
+      env:
+        TZ: Asia/Shanghai
+        GI_SERVER: ${{ vars.GI_SERVER }}
+        GI_UID: ${{ vars.GI_UID }}
+        GI_COOKIE: ${{ secrets.GI_COOKIE }}
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: 'output'
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
