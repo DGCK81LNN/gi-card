@@ -8,7 +8,7 @@ from urllib.request import urlopen, Request
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 salt = "6s25p5ox5y14umn1p61aqyyvbvvl3lrt"
-locale.setlocale(locale.LC_ALL, 'zh-cn')
+#locale.setlocale(locale.LC_ALL, 'zh-cn.utf-8')
 
 # Reference: https://github.com/Scighost/Starward/blob/2df96823d634c67da9cf561decbee6643070c6b5/src/Starward.Core/GameRecord/GameRecordClient.cs#L72-L117
 def generate_secret():
