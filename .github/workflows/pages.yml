@@ -2,7 +2,7 @@ name: Build and deploy to GitHub Pages
 
 on:
   schedule:
-  - cron: "0 4,8,12,16,20 * * *"
+  - cron: "0 4 * * *"
   workflow_dispatch:
 
 permissions:
